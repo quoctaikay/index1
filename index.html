@@ -38,7 +38,7 @@
 
   /* Avatar */
   .crest{
-   width: min(90px, 89vw); 
+   width: min(90px, 25vw); 
   object-fit: cover; /* giữ đúng khung, không méo */}
    background:#1a2747; overflow:hidden; display:grid; place-items:center;
     box-shadow:0 0 0 6px #5be9ff22, 0 0 45px #5be9ff44 inset, 0 0 70px #7a00ff33;
@@ -145,13 +145,13 @@
 
 <style>
   .logo {
-    width: 90px;        /* đúng theo chiều ngang ảnh */
-    height: 89px;       /* đúng theo chiều cao ảnh */
+    width: min(25vw, 90px);   /* chiếm 25% chiều ngang màn hình, nhưng không vượt quá 90px */
+    height: auto;             /* giữ đúng tỉ lệ (89px khi width = 90px) */
     display: block;
-    margin: 20px auto;  /* căn giữa */
+    margin: 20px auto;        /* căn giữa */
   }
 </style>
-    </div>
+</div>
 
     <h1 class="title neon-text">WC Kay</h1>
     <div class="subtitle"><span>CHÀO MỪNG ĐẾN WEBSITE</span></div>
@@ -173,13 +173,13 @@
 
 <style>
   .logo {
-    width: 90px;        /* đúng theo chiều ngang ảnh */
-    height: 89px;       /* đúng theo chiều cao ảnh */
+    width: min(25vw, 90px);   /* chiếm 25% chiều ngang màn hình, nhưng không vượt quá 90px */
+    height: auto;             /* giữ đúng tỉ lệ (89px khi width = 90px) */
     display: block;
-    margin: 20px auto;  /* căn giữa */
+    margin: 20px auto;        /* căn giữa */
   }
 </style>
-    </div>
+</div>
 
     <h1 class="title neon-text">WC Kay</h1>
     <div class="subtitle"><span>CHÀO MỪNG ĐẾN WEBSITE</span></div>
