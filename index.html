@@ -168,13 +168,48 @@ body{
 .hidden{display:none}
 .fadeIn{animation:fade .35s ease both}
 @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+/* ==== LOGIN ==== */
+#loginScreen{
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  height:100vh; flex-direction:column; gap:16px;
+  z-index:1;
+}
+.login-box{
+  background:rgba(0,0,0,0.7);
+  padding:30px; border-radius:16px;
+  box-shadow:0 0 20px #00eaff55;
+  display:flex; flex-direction:column; gap:14px; width:300px;
+}
+.login-box h2{text-align:center; margin:0; color:#00eaff}
+.login-box input{
+  padding:10px; border:none; border-radius:8px; outline:none;
+}
+.login-box button{
+  padding:10px; border:none; border-radius:8px;
+  background:#00eaff; color:#000; font-weight:700; cursor:pointer;
+}
+.login-box button:hover{background:#00bcd4}
+#errorMsg{color:#ff5555; font-size:14px; text-align:center}
 </style>
 </head>
 <body>
 <canvas id="net"></canvas>
 
+<!-- ======= LOGIN ======= -->
+<section id="loginScreen">
+  <div class="login-box">
+    <h2>Đăng nhập</h2>
+    <input type="text" id="username" placeholder="Tài khoản">
+    <input type="password" id="password" placeholder="Mật khẩu">
+    <button onclick="checkLogin()">Đăng nhập</button>
+    <div id="errorMsg"></div>
+  </div>
+</section>
+
 <!-- ======= MÀN 1 ======= -->
-<section id="screen1" class="page">
+<section id="screen1" class="page hidden">
   <div class="wrap">
     <div class="crest">
       <img src="avatar.png" alt="Logo" class="logo">
@@ -240,9 +275,34 @@ body{
 <audio id="clickSound" src="click.mp3" preload="auto"></audio>
 
 <script>
-const welcomeCard = document.getElementById('welcomeCard');
+// ===== ĐĂNG NHẬP =====
+const login = document.getElementById('loginScreen');
 const s1 = document.getElementById('screen1');
 const s2 = document.getElementById('screen2');
+const errorMsg = document.getElementById('errorMsg');
+
+// Tài khoản hợp lệ
+const validUser = "nguyenquoctai";
+// Mật khẩu được mã hóa base64 (WorldCup -> V29ybGRDdXA=)
+const validPassEncoded = "V29ybGRDdXA=";
+
+function checkLogin(){
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value.trim();
+  const pEncoded = btoa(p);
+
+  if(u === validUser && pEncoded === validPassEncoded){
+    // Ẩn login, hiện màn 1
+    login.style.display = "none"; 
+    s1.classList.remove('hidden');
+    window.scrollTo({top:0, behavior:'auto'});
+  } else {
+    errorMsg.textContent = "Sai tài khoản hoặc mật khẩu!";
+  }
+}
+
+// ===== CHUYỂN MÀN 1 -> MÀN 2 =====
+const welcomeCard = document.getElementById('welcomeCard');
 welcomeCard.addEventListener('click', () => {
   s1.classList.add('hidden');
   s2.classList.remove('hidden');
