@@ -153,6 +153,18 @@ body{
   color: white;
 }
 
+/* Trạng thái icon xanh */
+.status-dot {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background:#00ff40;
+  border-radius:50%;
+  margin-right:6px;
+  vertical-align:middle;
+  box-shadow:0 0 4px #00ff40aa;
+}
+
 /* Footer */
 .author-bottom{
   margin-top:40px;
@@ -167,7 +179,7 @@ body{
 
 .hidden{display:none}
 .fadeIn{animation:fade .35s ease both}
-@keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+@keyframes fade{from{opacity:0, transform:translateY(6px)} to{opacity:1, transform:none}}
 
 /* ==== LOGIN ==== */
 #loginScreen{
@@ -200,6 +212,12 @@ body{
 <!-- ======= LOGIN ======= -->
 <section id="loginScreen">
   <div class="login-box">
+    <!-- Trạng thái + đồng hồ -->
+    <div id="statusBox" style="text-align:center; margin-bottom:10px; color:#fff;">
+      <div><span class="status-dot"></span> Trạng thái: Online</div>
+      <div>⏰ Thời gian: <span id="clock">--:--:--</span></div>
+    </div>
+
     <h2>Đăng nhập</h2>
     <input type="text" id="username" placeholder="Tài khoản">
     <input type="password" id="password" placeholder="Mật khẩu">
@@ -281,15 +299,15 @@ const s1 = document.getElementById('screen1');
 const s2 = document.getElementById('screen2');
 const errorMsg = document.getElementById('errorMsg');
 
-// TàikhoảnhợplệconstvalidUser="nguyenquoctai"; // Mật khẩuđược mã hóa base64(WorldCup->V29ybGRDdXA=)constvalidPassEncoded = "V29ybGRDdXA=";
+// Tài khoản & mật khẩu thật (ẩn trong Base64)
+const validUserEncoded = btoa("nguyenquoctai");
+const validPassEncoded = btoa("WorldCup");
 
 function checkLogin(){
   const u = document.getElementById('username').value.trim();
   const p = document.getElementById('password').value.trim();
-  const pEncoded = btoa(p);
 
-  if(u === validUser && pEncoded === validPassEncoded){
-    // Ẩn login, hiện màn 1
+  if(btoa(u) === validUserEncoded && btoa(p) === validPassEncoded){
     login.style.display = "none"; 
     s1.classList.remove('hidden');
     window.scrollTo({top:0, behavior:'auto'});
@@ -320,6 +338,17 @@ function toggleBtn(btn){
   clickSound.currentTime = 0;
   clickSound.play();
 }
+
+// ===== ĐỒNG HỒ REALTIME =====
+function updateClock(){
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById("clock").textContent = `${h}:${m}:${s}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
 
 // ===== NỀN CHẤM + NỐI =====
 (() => {
